@@ -104,12 +104,42 @@ EXPECT_FALSE(candle.contains(10.1));
 
 }
 
-  
+
 
 TEST_F(CandleTest, Contains_OutOfRange) {
 
 EXPECT_FALSE(greenCandle.contains(7.5));
 
 EXPECT_FALSE(greenCandle.contains(15.5));
+
+}
+
+// Test full_size()
+
+TEST_F(CandleTest, FullSize_GreenCandle) {
+
+EXPECT_DOUBLE_EQ(greenCandle.full_size(), 7.0);
+
+}
+
+  
+
+TEST_F(CandleTest, FullSize_RedCandle) {
+
+EXPECT_DOUBLE_EQ(redCandle.full_size(), 7.0);
+
+}
+
+  
+
+TEST_F(CandleTest, FullSize_Various) {
+
+Candle candle1{5.0, 15.0, 0.0, 10.0};
+
+Candle candle2{10.0, 10.0, 10.0, 10.0};
+
+EXPECT_DOUBLE_EQ(candle1.full_size(), 15.0);
+
+EXPECT_DOUBLE_EQ(candle2.full_size(), 0.0);
 
 }
