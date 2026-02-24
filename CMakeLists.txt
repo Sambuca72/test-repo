@@ -36,4 +36,4 @@ PRIVATE gtest_main gtest
 
   
 
-add_test(NAME CandleTests COMMAND ${PROJECT_NAME})in.cpp candle.cpp)
+add_test(NAME CandleTests COMMAND ${PROJECT_NAME})
