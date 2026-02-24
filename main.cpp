@@ -143,3 +143,159 @@ EXPECT_DOUBLE_EQ(candle1.full_size(), 15.0);
 EXPECT_DOUBLE_EQ(candle2.full_size(), 0.0);
 
 }
+
+// Test body_size()
+
+TEST_F(CandleTest, BodySize_GreenCandle) {
+
+
+EXPECT_DOUBLE_EQ(greenCandle.body_size(), 4.0);
+
+}
+
+  
+
+TEST_F(CandleTest, BodySize_RedCandle) {
+
+EXPECT_DOUBLE_EQ(redCandle.body_size(), 4.0);
+
+}
+
+  
+
+TEST_F(CandleTest, BodySize_DojiCandle) {
+
+
+EXPECT_DOUBLE_EQ(dojCandle.body_size(), 0.0);
+
+}
+
+  
+
+TEST_F(CandleTest, BodySize_Various) {
+
+Candle candle{5.0, 10.0, 0.0, 15.0};
+
+EXPECT_DOUBLE_EQ(candle.body_size(), 10.0);
+
+}
+
+// Test is_green()
+
+TEST_F(CandleTest, IsGreen_TrueForGreenCandle) {
+
+EXPECT_TRUE(greenCandle.is_green());
+
+}
+
+  
+
+TEST_F(CandleTest, IsGreen_FalseForRedCandle) {
+
+EXPECT_FALSE(redCandle.is_green());
+
+}
+
+  
+
+TEST_F(CandleTest, IsGreen_FalseForDojiCandle) {
+
+EXPECT_FALSE(dojCandle.is_green());
+
+}
+
+  
+
+TEST_F(CandleTest, IsGreen_EdgeCase) {
+
+Candle almostGreen{10.0, 15.0, 8.0, 10.0000001};
+
+EXPECT_TRUE(almostGreen.is_green());
+
+}
+
+  
+
+// Test is_red()
+
+TEST_F(CandleTest, IsRed_FalseForGreenCandle) {
+
+EXPECT_FALSE(greenCandle.is_red());
+
+}
+
+  
+
+TEST_F(CandleTest, IsRed_TrueForRedCandle) {
+
+EXPECT_TRUE(redCandle.is_red());
+
+}
+
+  
+
+TEST_F(CandleTest, IsRed_FalseForDojiCandle) {
+
+EXPECT_FALSE(dojCandle.is_red());
+
+}
+
+  
+
+TEST_F(CandleTest, IsRed_EdgeCase) {
+
+Candle almostRed{10.0, 15.0, 8.0, 9.9999999};
+
+EXPECT_TRUE(almostRed.is_red());
+
+}
+
+  
+
+// Integration tests
+
+TEST_F(CandleTest, Integration_GreenCandleProperties) {
+
+EXPECT_TRUE(greenCandle.is_green());
+
+EXPECT_FALSE(greenCandle.is_red());
+
+EXPECT_DOUBLE_EQ(greenCandle.full_size(), 7.0);
+
+EXPECT_DOUBLE_EQ(greenCandle.body_size(), 4.0);
+
+}
+
+  
+
+TEST_F(CandleTest, Integration_RedCandleProperties) {
+
+EXPECT_TRUE(redCandle.is_red());
+
+EXPECT_FALSE(redCandle.is_green());
+
+EXPECT_DOUBLE_EQ(redCandle.full_size(), 7.0);
+
+EXPECT_DOUBLE_EQ(redCandle.body_size(), 4.0);
+
+}
+
+  
+
+TEST_F(CandleTest, Integration_ContainmentLogic) {
+
+// For green candle, verify all contained prices in body are contained overall
+
+for (double price = 10.0; price <= 14.0; price += 0.5) {
+
+EXPECT_TRUE(greenCandle.contains(price));
+
+if (greenCandle.body_contains(price)) {
+
+EXPECT_TRUE(greenCandle.contains(price));
+
+}
+
+}
+
+}
