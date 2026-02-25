@@ -1,0 +1,37 @@
+# Simple CI for a C++ project — runs on test_branch
+on:
+  push:
+    branches:
+      - test_branch
+  pull_request:
+    branches:
+      - test_branch
+  workflow_dispatch:    # allows manual runs from the Actions UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      - name: Configure
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+
+      - name: Build
+        run: |
+          cd build
+          cmake --build . --config Release -- -j$(nproc)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure
