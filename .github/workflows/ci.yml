@@ -1,11 +1,11 @@
-# Simple CI for a C++ project — runs on test_branch
+# Simple CI for a C++ project — runs on main
 on:
   push:
     branches:
-      - test_branch
+      - main
   pull_request:
     branches:
-      - test_branch
+      - main
   workflow_dispatch:    # allows manual runs from the Actions UI
 
 jobs:
