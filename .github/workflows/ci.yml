@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - main
+      - test_git
   pull_request:
     branches:
-      - maiт
+      - main
+      - test_git
   workflow_dispatch:    # allows manual runs from the Actions UI
 
 jobs:
